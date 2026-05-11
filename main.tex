@@ -1,0 +1,290 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage{beamerthemeSWUFE}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\graphicspath{{assets/figures/}{assets/logos/}}
+
+\lstdefinestyle{swufeCode}{
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{swufeBlue}\bfseries,
+  commentstyle=\color{swufeGray},
+  stringstyle=\color{swufeGold},
+  numbers=left,
+  numberstyle=\tiny\color{swufeGray},
+  frame=single,
+  rulecolor=\color{swufeLine},
+  breaklines=true,
+  columns=fullflexible,
+  xleftmargin=1.5em,
+  framexleftmargin=1.1em
+}
+\lstset{style=swufeCode}
+
+\title{宽松风险平价在全球 ETF 资产配置中的改进与实证研究}
+\subtitle{西南财经大学本科毕业论文答辩模板\\SWUFE Undergraduate Thesis Defense Beamer Template}
+\author{张三}
+\studentid{202200000000}
+\school{金融学院}
+\major{金融数学}
+\supervisor{李四 副教授}
+\date{2026年5月}
+
+\begin{document}
+
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+\begin{frame}{目录}
+  \tableofcontents
+\end{frame}
+
+\section{研究背景与意义}
+
+\begin{frame}{研究背景}{传统风险平价面临的现实约束}
+  \begin{itemize}
+    \item 全球资产配置需要在股票、债券、商品、黄金与现金类资产之间分散风险来源。
+    \item 传统风险平价强调各资产风险贡献相等，但在低利率、高波动和相关性上升阶段，组合可能出现杠杆依赖和债券暴露偏高。
+    \item 本科论文答辩中，研究背景应清晰回答：为什么问题重要、现有方法哪里不足、本文准备如何改进。
+  \end{itemize}
+  \begin{alertblock}{模板提示}
+    本页展示普通 bullet page。若出现数值，请注明“示例值 / illustrative”，避免将模板占位内容误认为真实实证结果。
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{研究意义}{面向本科答辩的三点贡献表达}
+  \begin{swufekeypoints}
+    \swufepoint{方法层面}{01}{引入宽松风险预算约束，使风险贡献不必严格相等，从而提高组合在不同市场阶段的适应性。}
+    \swufepoint{实证层面}{02}{基于全球 ETF 资产池、月度再平衡和交易成本假设，比较多类组合指标的表现。}
+    \swufepoint{应用层面}{03}{形成可解释、可复现的资产配置流程，为本科论文中的量化实证展示提供规范样例。}
+  \end{swufekeypoints}
+\end{frame}
+
+\section{文献综述与理论基础}
+
+\begin{frame}{文献综述}{从均值方差到风险预算}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \item 均值方差模型强调收益与风险权衡，但对预期收益估计敏感。
+        \item 风险平价将关注点转向风险贡献，弱化对收益预测的依赖。
+        \item 宽松风险平价可被视为在严格风险预算和实际投资约束之间的折中。
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{block}{理论脉络}
+        均值方差模型\\
+        $\Downarrow$\\
+        最小方差与分散化\\
+        $\Downarrow$\\
+        风险平价与风险预算\\
+        $\Downarrow$\\
+        宽松风险平价
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{理论基础}{风险贡献与预算约束}
+  设组合权重为 $w$，协方差矩阵为 $\Sigma$，组合波动率为
+  \[
+    \sigma_p = \sqrt{w^\top \Sigma w}.
+  \]
+  第 $i$ 个资产的边际风险贡献与总风险贡献可写为
+  \[
+    \mathrm{MRC}_i = \frac{(\Sigma w)_i}{\sigma_p}, \qquad
+    \mathrm{RC}_i = w_i \cdot \mathrm{MRC}_i.
+  \]
+  \begin{block}{宽松风险预算思想}
+    严格风险平价要求 $\mathrm{RC}_i$ 接近目标预算 $b_i\sigma_p$；宽松版本允许风险贡献在上下界内波动，以吸收估计误差和市场状态变化。
+  \end{block}
+\end{frame}
+
+\section{研究方法与模型设计}
+
+\begin{frame}{模型设计}{宽松风险平价的优化问题}
+  \begin{equation}
+    \begin{aligned}
+      \min_{w}\quad & w^\top \Sigma w \\
+      \mathrm{s.t.}\quad
+      & \sum_{i=1}^{N} w_i = 1,\quad 0 \leq w_i \leq u_i,\\
+      & \ell_i \leq \frac{\mathrm{RC}_i}{\sigma_p} \leq h_i,\quad i=1,\ldots,N.
+    \end{aligned}
+  \end{equation}
+  \begin{itemize}
+    \item $\ell_i$ 与 $h_i$ 分别表示第 $i$ 类资产风险预算比例的下界和上界。
+    \item 若上下界收窄，模型接近传统风险平价；若上下界放宽，模型更接近约束最小方差。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{实现流程}{代码片段展示}
+  \begin{lstlisting}[language=Python]
+def rebalance_monthly(returns, cov_estimator, bounds):
+    """Illustrative pseudo-code for thesis defense slides."""
+    weights = []
+    for date in month_end_dates(returns):
+        window = returns.loc[:date].tail(252)
+        sigma = cov_estimator(window)
+        w = solve_relaxed_risk_parity(sigma, bounds)
+        weights.append((date, w))
+    return weights
+  \end{lstlisting}
+  \begin{itemize}
+    \item 本模板使用 `listings`，无需 `-shell-escape`，降低本地编译门槛。
+    \item 代码页应展示关键流程，不建议在答辩中放入过长源码。
+  \end{itemize}
+\end{frame}
+
+\section{数据来源与实证设计}
+
+\begin{frame}{数据来源}{全球 ETF 资产池示例}
+  \begin{table}
+    \centering
+    \caption{全球 ETF 资产池示例（illustrative）}
+    \begin{tabular}{lll}
+      \toprule
+      资产类别 & ETF 代表 & 经济含义 \\
+      \midrule
+      美国股票 & SPY & 发达市场权益风险 \\
+      国际股票 & EFA & 非美国发达市场权益风险 \\
+      长期国债 & TLT & 久期与避险资产暴露 \\
+      黄金 & GLD & 通胀与尾部风险对冲 \\
+      商品 & DBC & 大宗商品周期暴露 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \vspace{-0.4em}
+  \scriptsize 注：本表为模板示例，不构成投资建议。
+\end{frame}
+
+\begin{frame}{实证设计}{再平衡、协方差与评价指标}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{组合构建}
+        \begin{itemize}
+          \item 频率：月度再平衡
+          \item 协方差：样本协方差、Ledoit--Wolf、EWMA
+          \item 约束：多头、权重上限、宽松风险预算
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{评价指标}
+        \begin{itemize}
+          \item 年化收益、年化波动率、Sharpe
+          \item 最大回撤、Calmar
+          \item CVaR、换手率、交易成本敏感性
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{实证结果与稳健性检验}
+
+\begin{frame}{实证结果}{核心绩效表}
+  \begin{table}
+    \centering
+    \caption{组合绩效比较示例值（illustrative）}
+    \begin{tabular}{lrrrr}
+      \toprule
+      策略 & 年化收益 & 年化波动 & Sharpe & 最大回撤 \\
+      \midrule
+      等权组合 & 6.10\% & 11.80\% & 0.52 & -18.40\% \\
+      传统风险平价 & 5.70\% & 9.60\% & 0.59 & -14.90\% \\
+      宽松风险平价 & 6.25\% & 9.90\% & 0.63 & -13.80\% \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \begin{alertblock}{说明}
+    所有数字均为示例值 / illustrative，用于展示表格版式和答辩语言，不代表真实研究结论。
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{双栏图文页}{净值路径与解释}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.56\textwidth}
+      \centering
+      \swufeplaceholderfigure{净值路径占位图 / illustrative NAV path}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+        \item 宽松风险平价在示例中保持较低回撤，并未显著牺牲收益。
+        \item 回撤控制主要来自资产间风险贡献的动态调整。
+        \item 正式论文中应替换为由实证代码生成的真实图表。
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{稳健性检验}{参数与交易成本敏感性}
+  \begin{table}
+    \centering
+    \caption{稳健性检验示例值（illustrative）}
+    \begin{tabular}{lrrr}
+      \toprule
+      情景 & Sharpe & Calmar & 年化换手率 \\
+      \midrule
+      基准参数 & 0.63 & 0.45 & 1.80 \\
+      风险预算区间收窄 & 0.60 & 0.41 & 1.35 \\
+      风险预算区间放宽 & 0.61 & 0.43 & 2.10 \\
+      单边成本 10bp & 0.58 & 0.39 & 1.80 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \scriptsize 注：本页展示稳健性检验页的常见写法，数值均为示例。
+\end{frame}
+
+\begin{frame}{结果讨论}{如何避免过度解释}
+  \begin{itemize}
+    \item 若宽松风险平价在某些窗口表现更好，应说明其可能来自回撤控制、波动管理或分散化改善，而非声称策略始终占优。
+    \item 若交易成本后指标下降，应保留该结果，并讨论月度再平衡下换手率对实际可投资性的影响。
+    \item 若协方差估计方法改变结论，应将其作为模型不确定性的一部分，而不是事后选择最优口径。
+  \end{itemize}
+\end{frame}
+
+\section{主要结论与不足}
+
+\begin{frame}{主要结论}{答辩中的收束表达}
+  \begin{enumerate}
+    \item 本文围绕传统风险平价在现实市场中的约束，构建了宽松风险预算框架。
+    \item 在全球 ETF 资产池和月度再平衡设定下，模板示例展示了收益、风险和回撤指标的比较方式。
+    \item 稳健性部分从参数区间、协方差估计和交易成本三个角度检验结论敏感性。
+  \end{enumerate}
+  \begin{block}{答辩建议}
+    结论页应回扣研究问题、方法和证据，不宜新增复杂结果。
+  \end{block}
+\end{frame}
+
+\begin{frame}{研究不足与展望}
+  \begin{itemize}
+    \item 数据范围方面：ETF 上市时间和资产类别覆盖会影响样本长度与可比性。
+    \item 模型方面：协方差估计误差仍可能传导至权重，未来可进一步比较贝叶斯或动态相关模型。
+    \item 实践方面：真实交易还需考虑税费、滑点、流动性容量和再平衡执行偏差。
+  \end{itemize}
+  \begin{alertblock}{展望}
+    后续研究可将宽松风险预算与宏观状态识别、尾部风险控制或生命周期配置需求结合。
+  \end{alertblock}
+\end{frame}
+
+\section{致谢与答辩 Q\&A}
+
+\begin{frame}{致谢}
+  \begin{center}
+    \vspace{0.7cm}
+    {\LARGE\bfseries\color{swufeBlue}谢谢各位老师的指导与聆听}\\[0.8cm]
+    {\Large Questions \& Answers}\\[0.5cm]
+    \rule{0.55\linewidth}{0.6pt}\\[0.5cm]
+    \swufeUniversityCN\\
+    \swufeUniversityEN
+  \end{center}
+\end{frame}
+
+\end{document}
+
