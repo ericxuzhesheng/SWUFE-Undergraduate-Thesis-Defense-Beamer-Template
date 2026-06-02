@@ -8,9 +8,9 @@
 
 > 📄 完整成品：[**main.pdf**](main.pdf)（24 页，直接在线浏览，无需安装 LaTeX）
 
-| 封面 | 内页（三点式版式） |
+| 封面 | 章节扉页（含校徽） |
 | :--: | :--: |
-| ![封面预览](assets/preview/cover.png) | ![内页预览](assets/preview/content.png) |
+| ![封面预览](assets/preview/cover.png) | ![章节扉页预览](assets/preview/content.png) |
 
 如需本地编译查看完整答辩稿效果：
 
@@ -84,13 +84,13 @@ latexmk -C
 
 ## 替换校徽
 
-模板默认不包含未经授权的校徽图片，首页使用 “SWUFE / 西南财经大学” 作为文字品牌元素。
+模板已在每个章节扉页右上角放置校徽 `assets/logos/logo.png`（章节扉页模板见 `beamerthemeSWUFE.sty` 中的 `section page`）。
 
-如需使用校徽：
+如需更换为自己的校徽：
 
-1. 将官方授权的校徽文件放入 `assets/logos/`。
-2. 在 `beamerthemeSWUFE.sty` 或 `main.tex` 中加入 `\includegraphics`。
-3. 确保校徽、校名与视觉识别资源的使用符合学校官方要求。
+1. 用官方授权的校徽文件替换 `assets/logos/logo.png`（保持透明背景效果最佳）。
+2. 如需调整大小或位置，修改 `beamerthemeSWUFE.sty` 中 `section page` 里 `\includegraphics[width=1.9cm]{logo}` 一行。
+3. 请确保校徽、校名与视觉识别资源的使用符合学校官方要求，使用者自行承担合规责任。
 
 ## 修改个人信息
 
@@ -186,9 +186,9 @@ The template is formal, clean, and academic. It uses a 16:9 aspect ratio by defa
 
 > 📄 Full deck: [**main.pdf**](main.pdf) (24 pages, view online — no LaTeX install required)
 
-| Title page | Inner page (three-point layout) |
+| Title page | Section divider (with logo) |
 | :--: | :--: |
-| ![Title page preview](assets/preview/cover.png) | ![Inner page preview](assets/preview/content.png) |
+| ![Title page preview](assets/preview/cover.png) | ![Section divider preview](assets/preview/content.png) |
 
 To build and view the full deck locally:
 
@@ -262,13 +262,13 @@ If LaTeX reports a missing font, edit `\setCJKmainfont`, `\setCJKsansfont`, or `
 
 ## Replacing the Logo
 
-This template does not include unofficial SWUFE logo files. The title page uses text branding, “SWUFE / 西南财经大学,” as a safe placeholder.
+The template places the logo `assets/logos/logo.png` in the top-right corner of every section divider page (see the `section page` template in `beamerthemeSWUFE.sty`).
 
-To use a logo:
+To use your own logo:
 
-1. Place an officially authorized logo file in `assets/logos/`.
-2. Add `\includegraphics` in `beamerthemeSWUFE.sty` or `main.tex`.
-3. Make sure all university names, logos, and visual identity resources are used lawfully and in accordance with official rules.
+1. Replace `assets/logos/logo.png` with an officially authorized file (a transparent background works best).
+2. To adjust size or position, edit the `\includegraphics[width=1.9cm]{logo}` line in the `section page` template inside `beamerthemeSWUFE.sty`.
+3. Make sure all university names, logos, and visual identity resources are used lawfully and in accordance with official rules. The user is responsible for compliant use.
 
 ## Editing Personal Information
 
