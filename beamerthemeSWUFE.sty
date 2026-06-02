@@ -115,27 +115,32 @@
 
 \setbeamertemplate{title page}{%
   \begin{tikzpicture}[remember picture,overlay]
+    % Deep blue canvas with subtle vertical depth.
     \fill[swufeBlue] (current page.south west) rectangle (current page.north east);
-    \fill[swufeGold] (current page.south west) rectangle ([yshift=0.13cm]current page.south east);
-    \fill[swufeGold,opacity=0.18] ([xshift=-2.4cm,yshift=1.0cm]current page.north east) circle (3.1cm);
-    \draw[white,opacity=0.12,line width=0.8pt] ([xshift=-4.7cm,yshift=0.4cm]current page.north east) circle (4.0cm);
+    \fill[black,opacity=0.16] (current page.south west) rectangle ([yshift=2.7cm]current page.south east);
+    % Atmospheric concentric rings in the top-right corner.
+    \fill[white,opacity=0.05] ([xshift=-1.9cm,yshift=1.4cm]current page.north east) circle (3.6cm);
+    \draw[white,opacity=0.10,line width=0.9pt] ([xshift=-4.7cm,yshift=0.2cm]current page.north east) circle (4.4cm);
+    \draw[swufeGold,opacity=0.32,line width=1pt] ([xshift=-1.1cm,yshift=-1.7cm]current page.north east) circle (2.1cm);
+    % Gold baseline accent.
+    \fill[swufeGold] (current page.south west) rectangle ([yshift=0.16cm]current page.south east);
   \end{tikzpicture}
-  \vspace*{0.5cm}
-  {\sffamily\bfseries\large SWUFE / \swufeUniversityCN\par}
-  \vspace{0.9cm}
-  {\usebeamerfont{title}\inserttitle\par}
-  \vspace{0.25cm}
-  {\usebeamerfont{subtitle}\insertsubtitle\par}
+  \vspace*{0.75cm}
+  {\sffamily\bfseries\normalsize\color{swufeGold}SWUFE\,}{\sffamily\color{white!85}/\ \swufeUniversityCN\par}
+  \vspace{0.85cm}
+  {\usebeamerfont{title}\color{white}\inserttitle\par}
+  \vspace{0.35cm}
+  {\color{swufeGold}\rule{2.6cm}{2.2pt}\par}
+  \vspace{0.4cm}
+  {\usebeamerfont{subtitle}\color{white!88}\insertsubtitle\par}
   \vfill
-  \begin{beamercolorbox}[wd=\paperwidth,sep=0pt]{normal text}
-    \color{white}
-    \begin{tabular}{@{}ll@{\hspace{1.1cm}}ll@{}}
+  {\sffamily\scriptsize\setlength{\extrarowheight}{2.5pt}%
+    \begin{tabular}{@{}>{\bfseries\color{swufeGold}}l >{\color{white}}p{3.7cm} @{\hspace{0.5cm}}>{\bfseries\color{swufeGold}}l >{\color{white}}p{4.0cm}@{}}
       学生姓名 & \insertauthor & 学号 & \swufeStudentID \\
-      学院/专业 & \swufeSchool / \swufeMajor & 指导老师 & \swufeSupervisor \\
-      答辩日期 & \insertdate & 学校 & \swufeUniversityEN
-    \end{tabular}
-  \end{beamercolorbox}
-  \vspace*{0.35cm}
+      学院/专业 & \swufeSchool\ /\ \swufeMajor & 指导老师 & \swufeSupervisor \\
+      答辩日期 & \insertdate & 学校 & \swufeUniversityEN \\
+    \end{tabular}\par}
+  \vspace*{0.5cm}
 }
 
 \setbeamertemplate{frametitle}{%
@@ -145,7 +150,9 @@
     \ifx\insertframesubtitle\@empty\else
       {\hfill\small\color{swufeLight}\insertframesubtitle}
     \fi
-  \end{beamercolorbox}
+  \end{beamercolorbox}%
+  \nointerlineskip
+  \hbox{\color{swufeGold}\rule{\paperwidth}{1.4pt}}%
 }
 
 \setbeamertemplate{footline}{%
