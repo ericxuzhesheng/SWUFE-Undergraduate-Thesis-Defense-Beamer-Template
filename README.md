@@ -6,7 +6,13 @@
 
 ## 效果预览
 
-当前仓库不包含预览图片。编译后可查看 `main.pdf` 预览完整答辩稿效果：
+> 📄 完整成品：[**main.pdf**](main.pdf)（24 页，直接在线浏览，无需安装 LaTeX）
+
+| 封面 | 内页（三点式版式） |
+| :--: | :--: |
+| ![封面预览](assets/preview/cover.png) | ![内页预览](assets/preview/content.png) |
+
+如需本地编译查看完整答辩稿效果：
 
 ```bash
 latexmk -xelatex main.tex
@@ -178,7 +184,13 @@ The template is formal, clean, and academic. It uses a 16:9 aspect ratio by defa
 
 ## Preview
 
-No preview image is included in the repository. Compile the project and open `main.pdf`:
+> 📄 Full deck: [**main.pdf**](main.pdf) (24 pages, view online — no LaTeX install required)
+
+| Title page | Inner page (three-point layout) |
+| :--: | :--: |
+| ![Title page preview](assets/preview/cover.png) | ![Inner page preview](assets/preview/content.png) |
+
+To build and view the full deck locally:
 
 ```bash
 latexmk -xelatex main.tex
