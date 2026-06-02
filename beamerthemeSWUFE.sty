@@ -97,7 +97,17 @@
 \setbeamerfont{block title}{family=\sffamily,series=\bfseries}
 
 \setlength{\parskip}{0.3em}
-\linespread{1.05}
+\linespread{1.08}
+
+% Generous editorial side margins and list rhythm.
+\setbeamersize{text margin left=0.85cm,text margin right=0.85cm}
+\addtobeamertemplate{itemize/enumerate body begin}{}{\setlength{\itemsep}{0.5em}}
+\addtobeamertemplate{itemize/enumerate subbody begin}{}{\setlength{\itemsep}{0.3em}}
+
+% Chinese caption labels for tables and figures.
+\renewcommand{\tablename}{表}
+\renewcommand{\figurename}{图}
+\setbeamercolor{caption name}{fg=swufeBlue}
 
 % Title metadata helpers.
 \newcommand{\swufeStudentID}{}
@@ -145,7 +155,8 @@
 
 \setbeamertemplate{frametitle}{%
   \nointerlineskip
-  \begin{beamercolorbox}[wd=\paperwidth,ht=0.82cm,dp=0.25cm,leftskip=0.55cm,rightskip=0.55cm]{frametitle}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.9cm,dp=0.28cm,leftskip=0.55cm,rightskip=0.55cm]{frametitle}
+    {\color{swufeGold}\rule[0.1ex]{0.42em}{0.42em}}\hspace{0.45em}%
     \usebeamerfont{frametitle}\insertframetitle
     \ifx\insertframesubtitle\@empty\else
       {\hfill\small\color{swufeLight}\insertframesubtitle}
@@ -156,36 +167,47 @@
 }
 
 \setbeamertemplate{footline}{%
+  \hbox{\hspace{0.45cm}\color{swufeLine}\rule{\dimexpr\paperwidth-0.9cm\relax}{0.4pt}}%
+  \nointerlineskip\vskip1.2pt
   \leavevmode%
   \hbox{%
-    \begin{beamercolorbox}[wd=.36\paperwidth,ht=2.7ex,dp=1ex,leftskip=0.45cm]{author in head/foot}%
-      \color{swufeGray}\insertsectionhead
+    \begin{beamercolorbox}[wd=.40\paperwidth,ht=2.5ex,dp=1ex,leftskip=0.45cm]{author in head/foot}%
+      {\color{swufeGold}\rule[0.05ex]{0.32em}{0.32em}}\hspace{0.4em}\color{swufeGray}\insertsectionhead
     \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.38\paperwidth,ht=2.7ex,dp=1ex,center]{title in head/foot}%
-      \color{swufeBlue}\sffamily 本科毕业论文答辩
+    \begin{beamercolorbox}[wd=.34\paperwidth,ht=2.5ex,dp=1ex,center]{title in head/foot}%
+      \color{swufeGray}\sffamily 西南财经大学 \textperiodcentered{} 本科毕业论文答辩
     \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.26\paperwidth,ht=2.7ex,dp=1ex,rightskip=0.45cm plus 1fil]{date in head/foot}%
-      \color{swufeGray}\insertframenumber{} / \inserttotalframenumber
+    \begin{beamercolorbox}[wd=.26\paperwidth,ht=2.5ex,dp=1ex,rightskip=0.45cm plus 1fil]{date in head/foot}%
+      {\color{swufeBlue}\bfseries\insertframenumber}\,{\color{swufeGray}/ \inserttotalframenumber}
     \end{beamercolorbox}%
   }%
+  \vskip2pt
 }
+
+% Zero-padded section number, e.g. 01, 02 ... for the editorial display numeral.
+\newcommand{\swufe@secnum}{\ifnum\thesection<10 0\fi\thesection}
 
 \setbeamertemplate{section page}{%
   \begin{tikzpicture}[remember picture,overlay]
     \fill[swufeLight] (current page.south west) rectangle (current page.north east);
     \fill[swufeBlue] (current page.south west) rectangle ([xshift=2.1cm]current page.north west);
     \fill[swufeGold] ([xshift=2.1cm]current page.south west) rectangle ([xshift=2.22cm]current page.north west);
+    % Oversized ghost numeral for typographic depth.
+    \node[anchor=east,inner sep=0pt,text=swufeBlue,opacity=0.06] at ([xshift=0.6cm,yshift=-0.2cm]current page.east)
+      {\sffamily\bfseries\fontsize{150}{150}\selectfont \swufe@secnum};
     \node[anchor=north east,inner sep=0pt] at ([xshift=-1.0cm,yshift=-0.95cm]current page.north east)
-      {\includegraphics[width=1.9cm]{logo}};
+      {\includegraphics[width=1.7cm]{logo}};
   \end{tikzpicture}
-  \vspace*{1.45cm}
+  \vspace*{1.15cm}
   \hspace*{1.9cm}
-  \begin{minipage}{0.72\paperwidth}
-    {\color{swufeGold}\sffamily\bfseries 第 \thesection 部分\par}
-    \vspace{0.25cm}
+  \begin{minipage}{0.74\paperwidth}
+    {\sffamily\bfseries\fontsize{58}{58}\selectfont\color{swufeGold}\swufe@secnum\par}
+    \vspace{0.35cm}
+    {\sffamily\color{swufeGray}\normalsize 第 \thesection 部分\par}
+    \vspace{0.12cm}
     {\usebeamerfont{section title}\color{swufeBlue}\insertsection\par}
-    \vspace{0.25cm}
-    {\color{swufeGray}\rule{0.62\linewidth}{0.6pt}\par}
+    \vspace{0.3cm}
+    {\color{swufeGold}\rule{2.6cm}{2.2pt}\par}
   \end{minipage}
 }
 \AtBeginSection{\begin{frame}[plain,noframenumbering]\sectionpage\end{frame}}
